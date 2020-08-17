@@ -42,6 +42,13 @@ UserScema.methods = {
         if (!password) return '';
         
         try {
+            // crypto.createHmac('sha1', this.salt)
+            // this applies sha1 algo to salt.
+            // crypto.createHmac('sha1', this.salt).update(password)
+            // this combine the encrypted salt with the password.
+            // crypto.createHmac('sha1', this.salt).update(password).digest('hex')
+            // this is used so that no one can use it further in application.
+            // some developers store this in variable and use it later on, which is not a good practice.
             return crypto.createHmac('sha1', this.salt).update(password).digest('hex'); 
         } catch (err) {
             return err;
