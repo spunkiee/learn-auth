@@ -43,6 +43,7 @@ UserScema.methods = {
     },
 
     encryptPassword : function (password) {
+        // Remember there is no used of arrow function bcz we uses this keyword inside it.
         if (!password) return '';
         
         try {
@@ -64,8 +65,13 @@ UserScema.methods = {
     }
 }
 
+// virtual means, this is something that I dont want to save in our database, but want to use it for sometime.
+// UserScema.virtual('password') -> this is the name of field on which I want to play around
+// virtual main jo bhi field pass hoti hai, uss field ki value -> passed in function parameter.
+// virtual calls every time when we save something.
 UserScema.virtual('password').set(function (password) {
-    // temporary variable called password
+    // temporary variable called _password
+    // that is not going to be store in database
     this._password = password;
 
     // generate salt and save it to our database
@@ -74,7 +80,10 @@ UserScema.virtual('password').set(function (password) {
     // encrypt the password
     this.hashed_password = this.encryptPassword(password);
 }).get(function () {
+    // useless funtion but can be used sometime
     return this._password;
+    // return this.firstName + this.lastName
+    // like I dont wnat to save combined name in a field, So I can return It from here.
 })
 
 module.exports = model('users', UserScema);
