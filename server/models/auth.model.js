@@ -19,6 +19,9 @@ const UserScema = new Schema({
         type : String,
         required : true
     },
+    // salt is basically a key that is combined with the password to make it encrypt.
+    // why this is stored in database ?
+    // bcz with this salt we generate the password again by encryption method and check wheather it matches with the previous password or not.
     salt : {
         type : String,
         required : true
@@ -28,6 +31,7 @@ const UserScema = new Schema({
         default : 'Subscriber'
     },
     resetPasswordLink : {
+        // for longer strings we use data
         data : String,
         default : '',
     }
